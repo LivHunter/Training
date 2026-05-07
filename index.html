@@ -559,20 +559,21 @@
   .btn-secondary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Print styles */
+  .print-zone { display: none; }
+
   @media print {
-    body * { visibility: hidden; }
-    .print-zone, .print-zone * { visibility: visible; }
     .print-zone {
-      position: absolute;
+      display: block !important;
+      position: fixed;
       top: 0; left: 0;
       width: 100%;
-      padding: 2.5cm 2cm;
+      padding: 2cm;
       font-family: 'Inter', Arial, sans-serif;
+      background: white;
+      z-index: 9999;
     }
-    .no-print { display: none !important; }
+    body > *:not(.print-zone) { display: none !important; }
   }
-
-  .print-zone { display: none; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
