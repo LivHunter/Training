@@ -3,35 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Safety Training Navigator</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<title>Safety Training Navigator — Roux Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #0f1e2e;
-    --navy-mid: #1a2f45;
-    --navy-light: #243d57;
-    --teal: #2ab8a0;
-    --teal-light: #3dd6bc;
-    --teal-faint: rgba(42,184,160,0.1);
-    --amber: #f0a500;
+    --red: #C8102E;
+    --red-dark: #a50d26;
+    --red-faint: rgba(200,16,46,0.07);
+    --black: #1a1a1a;
+    --black-mid: #2d2d2d;
     --white: #ffffff;
-    --off-white: #f4f6f8;
-    --text-main: #0f1e2e;
-    --text-muted: #5a7a96;
-    --text-light: #8bafc8;
-    --border: rgba(15,30,46,0.1);
-    --border-strong: rgba(15,30,46,0.18);
-    --radius: 14px;
-    --radius-sm: 8px;
-    --shadow: 0 4px 24px rgba(15,30,46,0.08);
-    --shadow-lg: 0 12px 48px rgba(15,30,46,0.14);
+    --off-white: #f7f7f7;
+    --gray-light: #f0f0f0;
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --text-light: #999999;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.15);
+    --radius: 12px;
+    --radius-sm: 7px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
   }
 
   html, body {
     height: 100%;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--off-white);
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
@@ -45,53 +44,91 @@
 
   /* Header */
   .header {
-    background: var(--navy);
-    padding: 0 2rem;
-    height: 64px;
+    background: var(--black);
+    padding: 0 2.5rem;
+    height: 68px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-shrink: 0;
+    border-bottom: 3px solid var(--red);
   }
 
   .header-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
   }
 
   .logo-mark {
-    width: 32px;
-    height: 32px;
-    background: var(--teal);
-    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
   }
 
-  .logo-mark svg {
-    width: 18px;
-    height: 18px;
-    stroke: white;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  /* NU "N" logo in red */
+  .nu-n {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: -1px;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.2);
   }
 
   .logo-text {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: white;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
   }
 
   .logo-dept {
     font-size: 11px;
-    color: var(--text-light);
+    color: rgba(255,255,255,0.5);
     font-weight: 400;
-    margin-top: 1px;
+    margin-top: 2px;
+  }
+
+  /* Hero banner */
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 
   /* Main layout */
@@ -100,12 +137,12 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 3rem 1.5rem 4rem;
+    padding: 2.5rem 1.5rem 4rem;
   }
 
   .container {
     width: 100%;
-    max-width: 720px;
+    max-width: 760px;
   }
 
   /* Progress bar */
@@ -145,15 +182,15 @@
   }
 
   .prog-node.active {
-    border-color: var(--teal);
-    background: var(--teal);
+    border-color: var(--red);
+    background: var(--red);
     color: white;
-    box-shadow: 0 0 0 5px rgba(42,184,160,0.15);
+    box-shadow: 0 0 0 5px rgba(200,16,46,0.12);
   }
 
   .prog-node.done {
-    border-color: var(--teal);
-    background: var(--teal);
+    border-color: var(--red);
+    background: var(--red);
     color: white;
   }
 
@@ -162,12 +199,12 @@
     color: var(--text-muted);
     margin-top: 6px;
     font-weight: 500;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .prog-label.active { color: var(--teal); }
+  .prog-label.active { color: var(--red); }
 
   .prog-line {
     flex: 1;
@@ -180,7 +217,7 @@
     top: -11px;
   }
 
-  .prog-line.done { background: var(--teal); }
+  .prog-line.done { background: var(--red); }
 
   /* Breadcrumb */
   .breadcrumb {
@@ -189,13 +226,13 @@
     gap: 6px;
     font-size: 13px;
     color: var(--text-muted);
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
     animation: fadeUp 0.3s ease;
   }
 
   .bc-link {
-    color: var(--teal);
+    color: var(--red);
     cursor: pointer;
     font-weight: 500;
     transition: opacity 0.15s;
@@ -211,8 +248,8 @@
 
   /* Page title */
   .page-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
+    font-size: 26px;
+    font-weight: 700;
     color: var(--text-main);
     margin-bottom: 6px;
     letter-spacing: -0.02em;
@@ -230,7 +267,7 @@
   /* Location cards */
   .loc-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 14px;
     animation: fadeUp 0.45s ease;
   }
@@ -239,7 +276,7 @@
     background: white;
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.5rem;
+    padding: 1.75rem 1.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
@@ -247,28 +284,29 @@
     overflow: hidden;
   }
 
-  .loc-card::before {
+  .loc-card::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    bottom: 0; left: 0; right: 0;
     height: 3px;
-    background: var(--teal);
+    background: var(--red);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s ease;
   }
 
   .loc-card:hover {
-    border-color: var(--teal);
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
+    border-color: rgba(200,16,46,0.25);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
   }
 
-  .loc-card:hover::before { transform: scaleX(1); }
+  .loc-card:hover::after { transform: scaleX(1); }
 
   .loc-card.disabled {
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: not-allowed;
+    background: var(--gray-light);
   }
 
   .loc-card.disabled:hover {
@@ -277,23 +315,23 @@
     border-color: var(--border);
   }
 
-  .loc-card.disabled:hover::before { transform: scaleX(0); }
+  .loc-card.disabled:hover::after { transform: scaleX(0); }
 
   .loc-icon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 10px;
-    background: var(--teal-faint);
+    background: var(--red-faint);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .loc-icon svg {
-    width: 20px;
-    height: 20px;
-    stroke: var(--teal);
+    width: 22px;
+    height: 22px;
+    stroke: var(--red);
     fill: none;
     stroke-width: 1.75;
     stroke-linecap: round;
@@ -301,10 +339,10 @@
   }
 
   .loc-name {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
 
   .loc-meta {
@@ -317,11 +355,11 @@
     display: inline-block;
     font-size: 10px;
     font-weight: 600;
-    color: var(--amber);
-    background: rgba(240,165,0,0.1);
+    color: var(--text-muted);
+    background: var(--gray-light);
     border-radius: 4px;
-    padding: 2px 7px;
-    margin-top: 8px;
+    padding: 3px 8px;
+    margin-top: 10px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -329,7 +367,7 @@
   /* Role cards */
   .role-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 12px;
     animation: fadeUp 0.4s ease;
   }
@@ -348,23 +386,23 @@
   }
 
   .role-card:hover {
-    border-color: var(--teal);
+    border-color: rgba(200,16,46,0.25);
     box-shadow: var(--shadow);
     transform: translateY(-2px);
   }
 
   .role-avatar {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: var(--teal-faint);
+    background: var(--red-faint);
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    color: var(--teal);
+    color: var(--red);
   }
 
   .role-info {}
@@ -382,11 +420,12 @@
   }
 
   .training-header {
-    background: var(--navy);
-    padding: 1.25rem 1.5rem;
+    background: var(--black);
+    padding: 1.5rem 1.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 3px solid var(--red);
   }
 
   .training-header-left {}
@@ -394,26 +433,26 @@
   .training-tag {
     font-size: 10px;
     font-weight: 600;
-    color: var(--teal);
+    color: var(--red);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 4px;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
   }
 
   .training-title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     color: white;
   }
 
   .training-count {
-    background: var(--teal-faint);
-    border: 1px solid rgba(42,184,160,0.3);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 20px;
-    padding: 4px 12px;
+    padding: 5px 14px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--teal-light);
+    color: rgba(255,255,255,0.8);
     white-space: nowrap;
   }
 
@@ -423,19 +462,19 @@
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    padding: 14px 1.5rem;
+    padding: 15px 1.75rem;
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
   }
 
   .training-item:last-child { border-bottom: none; }
-  .training-item:hover { background: rgba(42,184,160,0.03); }
+  .training-item:hover { background: var(--red-faint); }
 
   .item-num {
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background: var(--off-white);
+    background: var(--gray-light);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -454,10 +493,10 @@
     align-items: center;
     gap: 5px;
     font-size: 11px;
-    color: var(--amber);
-    background: rgba(240,165,0,0.08);
+    color: #888;
+    background: var(--gray-light);
     border-radius: 4px;
-    padding: 2px 8px;
+    padding: 3px 8px;
     margin-top: 5px;
     font-weight: 500;
   }
@@ -475,23 +514,23 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--teal);
+    background: var(--red);
     color: white;
     border: none;
     border-radius: var(--radius-sm);
-    padding: 11px 20px;
+    padding: 12px 22px;
     font-size: 13px;
     font-weight: 600;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
     letter-spacing: 0.01em;
   }
 
   .btn-primary:hover {
-    background: var(--teal-light);
+    background: var(--red-dark);
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(42,184,160,0.3);
+    box-shadow: 0 4px 16px rgba(200,16,46,0.3);
   }
 
   .btn-primary svg { width: 15px; height: 15px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -504,17 +543,17 @@
     color: var(--text-muted);
     border: 1.5px solid var(--border-strong);
     border-radius: var(--radius-sm);
-    padding: 10px 18px;
+    padding: 11px 20px;
     font-size: 13px;
     font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .btn-secondary:hover {
     border-color: var(--text-muted);
-    background: var(--off-white);
+    background: var(--gray-light);
   }
 
   .btn-secondary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -528,14 +567,12 @@
       top: 0; left: 0;
       width: 100%;
       padding: 2.5cm 2cm;
-      font-family: 'DM Sans', Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
     }
     .no-print { display: none !important; }
   }
 
-  .print-zone {
-    display: none;
-  }
+  .print-zone { display: none; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
@@ -559,14 +596,21 @@
 <header class="header">
   <div class="header-logo">
     <div class="logo-mark">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span class="nu-n">N</span>
     </div>
+    <div class="logo-divider"></div>
     <div>
-      <div class="logo-text">Safety Training Navigator</div>
-      <div class="logo-dept">Department Safety Portal</div>
+      <div class="logo-text">Roux Institute · Northeastern University</div>
+      <div class="logo-dept">Lab Safety Training Portal</div>
     </div>
   </div>
 </header>
+
+<div class="hero">
+  <span class="hero-eyebrow">Safety Compliance</span>
+  <div class="hero-title">Know before you go.</div>
+  <p class="hero-sub">Find the training requirements for your location and role before starting work in the lab.</p>
+</div>
 
 <main class="main">
   <div class="container" id="app"></div>
