@@ -584,9 +584,58 @@ const data = {
     {
       id: "usm",
       name: "USM",
-      meta: "Training requirements coming soon",
-      soon: true,
-      roles: []
+      meta: "4 roles · 1–5 requirements each",
+      soon: false,
+      roles: [
+        {
+          id: "lab-member",
+          name: "Lab Member",
+          initials: "LM",
+          desc: "Full-time lab staff",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Onboarding", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "I-Lab", note: null }
+          ]
+        },
+        {
+          id: "student",
+          name: "Student",
+          initials: "ST",
+          desc: "Student lab members",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Onboarding", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "I-Lab", note: null }
+          ]
+        },
+        {
+          id: "external",
+          name: "External Companies",
+          initials: "EC",
+          desc: "External company members",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Onboarding", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "I-Lab", note: null }
+          ]
+        },
+        {
+          id: "visiting-researcher",
+          name: "Visiting Researcher",
+          initials: "VR",
+          desc: "Visiting researchers",
+          items: [
+            { name: "Must be accompanied in the lab", note: null }
+          ]
+        }
+      ]
     },
     {
       id: "brunswick",
