@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety Training Navigator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1e2e;
+    --navy-mid: #1a2f45;
+    --navy-light: #243d57;
+    --teal: #2ab8a0;
+    --teal-light: #3dd6bc;
+    --teal-faint: rgba(42,184,160,0.1);
+    --amber: #f0a500;
+    --white: #ffffff;
+    --off-white: #f4f6f8;
+    --text-main: #0f1e2e;
+    --text-muted: #5a7a96;
+    --text-light: #8bafc8;
+    --border: rgba(15,30,46,0.1);
+    --border-strong: rgba(15,30,46,0.18);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 24px rgba(15,30,46,0.08);
+    --shadow-lg: 0 12px 48px rgba(15,30,46,0.14);
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--navy);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-mark svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .logo-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: -0.01em;
+  }
+
+  .logo-dept {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  /* Main layout */
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .progress-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .prog-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+  }
+
+  .prog-node {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    border: 2px solid var(--border-strong);
+    background: white;
+    color: var(--text-muted);
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .prog-node.active {
+    border-color: var(--teal);
+    background: var(--teal);
+    color: white;
+    box-shadow: 0 0 0 5px rgba(42,184,160,0.15);
+  }
+
+  .prog-node.done {
+    border-color: var(--teal);
+    background: var(--teal);
+    color: white;
+  }
+
+  .prog-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .prog-label.active { color: var(--teal); }
+
+  .prog-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 4px;
+    margin-bottom: 22px;
+    transition: background 0.3s ease;
+    position: relative;
+    top: -11px;
+  }
+
+  .prog-line.done { background: var(--teal); }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .bc-link {
+    color: var(--teal);
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.15s;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 0;
+  }
+
+  .bc-link:hover { opacity: 0.7; }
+  .bc-sep { color: var(--text-light); font-size: 16px; }
+
+  /* Page title */
+  .page-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.35s ease;
+  }
+
+  .page-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    animation: fadeUp 0.4s ease;
+  }
+
+  /* Location cards */
+  .loc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    animation: fadeUp 0.45s ease;
+  }
+
+  .loc-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  .loc-card:hover {
+    border-color: var(--teal);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .loc-card:hover::before { transform: scaleX(1); }
+
+  .loc-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .loc-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+
+  .loc-card.disabled:hover::before { transform: scaleX(0); }
+
+  .loc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--teal-faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .loc-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .loc-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 4px;
+  }
+
+  .loc-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .badge-soon {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--amber);
+    background: rgba(240,165,0,0.1);
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-top: 8px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Role cards */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .role-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .role-card:hover {
+    border-color: var(--teal);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .role-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--teal-faint);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  .role-info {}
+  .role-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
+  .role-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Training list */
+  .training-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    animation: fadeUp 0.4s ease;
+    box-shadow: var(--shadow);
+  }
+
+  .training-header {
+    background: var(--navy);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .training-header-left {}
+
+  .training-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .training-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .training-count {
+    background: var(--teal-faint);
+    border: 1px solid rgba(42,184,160,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--teal-light);
+    white-space: nowrap;
+  }
+
+  .training-body { padding: 0.5rem 0; }
+
+  .training-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .training-item:last-child { border-bottom: none; }
+  .training-item:hover { background: rgba(42,184,160,0.03); }
+
+  .item-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .item-body { flex: 1; }
+  .item-name { font-size: 14px; font-weight: 500; color: var(--text-main); line-height: 1.45; }
+
+  .item-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--amber);
+    background: rgba(240,165,0,0.08);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* Actions */
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(42,184,160,0.3);
+  }
+
+  .btn-primary svg { width: 15px; height: 15px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: white;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text-muted);
+    background: var(--off-white);
+  }
+
+  .btn-secondary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Print styles */
+  @media print {
+    body * { visibility: hidden; }
+    .print-zone, .print-zone * { visibility: visible; }
+    .print-zone {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 2.5cm 2cm;
+      font-family: 'DM Sans', Arial, sans-serif;
+    }
+    .no-print { display: none !important; }
+  }
+
+  .print-zone {
+    display: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 1.25rem;
+    font-size: 11px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    background: white;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div>
+      <div class="logo-text">Safety Training Navigator</div>
+      <div class="logo-dept">Department Safety Portal</div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container" id="app"></div>
+</main>
+
+<div class="print-zone" id="print-zone"></div>
+
+<footer class="footer no-print">
+  For questions, contact your department safety coordinator.
+</footer>
+
+<script>
+const data = {
+  locations: [
+    {
+      id: "usm",
+      name: "USM",
+      meta: "Training requirements coming soon",
+      soon: true,
+      roles: []
+    },
+    {
+      id: "brunswick",
+      name: "Brunswick Landing",
+      meta: "3 roles · 5–6 requirements each",
+      soon: false,
+      roles: [
+        {
+          id: "lab-member",
+          name: "Lab Member",
+          initials: "LM",
+          desc: "Full-time lab staff",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Respirator medical clearance & fit testing", note: null },
+            { name: "New hire orientation", note: "Required if new to the university" }
+          ]
+        },
+        {
+          id: "co-op",
+          name: "Co-op",
+          initials: "CO",
+          desc: "Cooperative education students",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Respirator medical clearance & fit testing", note: null },
+            { name: "New hire orientation", note: "Required if new to the university" }
+          ]
+        },
+        {
+          id: "startup",
+          name: "Start-up Company",
+          initials: "SC",
+          desc: "External company members",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Basic user agreement", note: null }
+          ]
+        }
+      ]
+    },
+    {
+      id: "portland",
+      name: "Portland (RIEL Lab)",
+      meta: "3 roles · 5–6 requirements each",
+      soon: false,
+      roles: [
+        {
+          id: "lab-member",
+          name: "Lab Member",
+          initials: "LM",
+          desc: "Full-time lab staff",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Respirator medical clearance & fit testing", note: null },
+            { name: "New hire orientation", note: "Required if new to the university" }
+          ]
+        },
+        {
+          id: "co-op",
+          name: "Co-op",
+          initials: "CO",
+          desc: "Cooperative education students",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Respirator medical clearance & fit testing", note: null },
+            { name: "New hire orientation", note: "Required if new to the university" }
+          ]
+        },
+        {
+          id: "startup",
+          name: "Start-up Company",
+          initials: "SC",
+          desc: "External company members",
+          items: [
+            { name: "Online training (Sci Shield)", note: null },
+            { name: "Combustible dust hazards", note: null },
+            { name: "Emergency action plan", note: null },
+            { name: "Hands-on equipment training", note: "For all equipment they will use" },
+            { name: "Basic user agreement", note: null }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+let state = { step: 0, location: null, role: null };
+
+function iconBuilding() {
+  return `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`;
+}
+
+function iconFlask() {
+  return `<svg viewBox="0 0 24 24"><path d="M9 3h6M9 3v8l-5 10h16L15 11V3"/></svg>`;
+}
+
+function iconPrint() {
+  return `<svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`;
+}
+
+function iconBack() {
+  return `<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>`;
+}
+
+function iconCheck() {
+  return `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
+}
+
+function progress() {
+  const steps = ["Location", "Role", "Training"];
+  return `<div class="progress-wrap no-print">
+    <div class="progress-steps">
+      ${steps.map((s, i) => `
+        <div class="prog-step">
+          <div class="prog-node ${i < state.step ? 'done' : i === state.step ? 'active' : ''}">
+            ${i < state.step ? iconCheck() : i + 1}
+          </div>
+          <div class="prog-label ${i === state.step ? 'active' : ''}">${s}</div>
+        </div>
+        ${i < steps.length - 1 ? `<div class="prog-line ${i < state.step ? 'done' : ''}"></div>` : ''}
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function breadcrumb() {
+  if (state.step === 0) return '';
+  const loc = data.locations.find(l => l.id === state.location);
+  let html = `<div class="breadcrumb">
+    <button class="bc-link" onclick="goTo(0)">All locations</button>`;
+  if (state.step >= 1) {
+    html += `<span class="bc-sep">›</span>`;
+    if (state.step === 1) {
+      html += `<span>${loc.name}</span>`;
+    } else {
+      html += `<button class="bc-link" onclick="goTo(1)">${loc.name}</button>`;
+    }
+  }
+  if (state.step === 2) {
+    const role = loc.roles.find(r => r.id === state.role);
+    html += `<span class="bc-sep">›</span><span>${role.name}</span>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+function renderStep0() {
+  return `
+    ${progress()}
+    <h1 class="page-title">Where are you located?</h1>
+    <p class="page-sub">Select your lab location to see the required safety training for your role.</p>
+    <div class="loc-grid">
+      ${data.locations.map(loc => `
+        <button class="loc-card${loc.soon ? ' disabled' : ''}" onclick="${loc.soon ? '' : `selectLocation('${loc.id}')`}">
+          <div class="loc-icon">${loc.id === 'usm' ? iconBuilding() : iconFlask()}</div>
+          <div class="loc-name">${loc.name}</div>
+          <div class="loc-meta">${loc.meta}</div>
+          ${loc.soon ? '<div class="badge-soon">Coming soon</div>' : ''}
+        </button>
+      `).join('')}
+    </div>`;
+}
+
+function renderStep1() {
+  const loc = data.locations.find(l => l.id === state.location);
+  return `
+    ${progress()}
+    ${breadcrumb()}
+    <h1 class="page-title">What is your role?</h1>
+    <p class="page-sub">Select the role that best describes your position at <strong>${loc.name}</strong>.</p>
+    <div class="role-grid">
+      ${loc.roles.map(role => `
+        <button class="role-card" onclick="selectRole('${role.id}')">
+          <div class="role-avatar">${role.initials}</div>
+          <div class="role-info">
+            <div class="role-name">${role.name}</div>
+            <div class="role-desc">${role.desc}</div>
+          </div>
+        </button>
+      `).join('')}
+    </div>
+    <div class="actions">
+      <button class="btn-secondary" onclick="goTo(0)">${iconBack()} Back</button>
+    </div>`;
+}
+
+function renderStep2() {
+  const loc = data.locations.find(l => l.id === state.location);
+  const role = loc.roles.find(r => r.id === state.role);
+  return `
+    ${progress()}
+    ${breadcrumb()}
+    <h1 class="page-title">Required training</h1>
+    <p class="page-sub">Complete all of the following before beginning work at <strong>${loc.name}</strong>.</p>
+    <div class="training-card">
+      <div class="training-header">
+        <div class="training-header-left">
+          <div class="training-tag">${loc.name}</div>
+          <div class="training-title">${role.name}</div>
+        </div>
+        <div class="training-count">${role.items.length} requirements</div>
+      </div>
+      <div class="training-body">
+        ${role.items.map((item, i) => `
+          <div class="training-item">
+            <div class="item-num">${i + 1}</div>
+            <div class="item-body">
+              <div class="item-name">${item.name}</div>
+              ${item.note ? `<div class="item-note"><svg width="11" height="11" viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${item.note}</div>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-primary" onclick="doPrint()">
+        ${iconPrint()}
+        Print checklist
+      </button>
+      <button class="btn-secondary" onclick="goTo(1)">${iconBack()} Back</button>
+    </div>`;
+}
+
+function selectLocation(id) {
+  state.location = id;
+  state.step = 1;
+  render();
+}
+
+function selectRole(id) {
+  state.role = id;
+  state.step = 2;
+  render();
+}
+
+function goTo(step) {
+  state.step = step;
+  if (step === 0) { state.location = null; state.role = null; }
+  if (step === 1) state.role = null;
+  render();
+}
+
+function doPrint() {
+  const loc = data.locations.find(l => l.id === state.location);
+  const role = loc.roles.find(r => r.id === state.role);
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  document.getElementById('print-zone').innerHTML = `
+    <div style="font-family:'DM Sans',Arial,sans-serif;max-width:680px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #0f1e2e;">
+        <div>
+          <div style="font-size:20px;font-weight:700;color:#0f1e2e;margin-bottom:4px;">Safety Training Checklist</div>
+          <div style="font-size:13px;color:#5a7a96;">Location: ${loc.name} &nbsp;|&nbsp; Role: ${role.name}</div>
+        </div>
+        <div style="font-size:11px;color:#8bafc8;text-align:right;">Generated: ${today}<br>Department Safety Portal</div>
+      </div>
+
+      <div style="margin-bottom:8px;font-size:12px;color:#5a7a96;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Required training (${role.items.length} items)</div>
+
+      ${role.items.map((item, i) => `
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #eef1f4;">
+          <div style="width:18px;height:18px;border:1.5px solid #0f1e2e;border-radius:3px;flex-shrink:0;margin-top:2px;"></div>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:#0f1e2e;">${item.name}</div>
+            ${item.note ? `<div style="font-size:11px;color:#f0a500;margin-top:3px;">${item.note}</div>` : ''}
+          </div>
+          <div style="margin-left:auto;font-size:11px;color:#8bafc8;white-space:nowrap;">Date completed: ________________</div>
+        </div>
+      `).join('')}
+
+      <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div>
+          <div style="border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Employee name (print)</div>
+          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Signature</div>
+          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Date</div>
+        </div>
+        <div>
+          <div style="border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Supervisor / lab manager (print)</div>
+          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Supervisor signature</div>
+          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Date</div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;padding-top:12px;border-top:1px solid #eef1f4;font-size:10px;color:#8bafc8;">
+        Submit this completed form to your department safety coordinator upon completion of all training requirements.
+      </div>
+    </div>`;
+
+  window.print();
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.step === 0) app.innerHTML = renderStep0();
+  else if (state.step === 1) app.innerHTML = renderStep1();
+  else app.innerHTML = renderStep2();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>
