@@ -621,6 +621,22 @@
 
   .btn-secondary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
+  /* Focus styles — keyboard navigation */
+  .loc-card:focus-visible,
+  .role-card:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-color: var(--red);
+  }
+
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible,
+  .bc-link:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
   /* Print styles */
   .print-zone { display: none; }
 
@@ -928,39 +944,40 @@ function iconCheck() {
 
 function progress() {
   const steps = ["Location", "Role", "Training"];
-  return `<div class="progress-wrap no-print">
-    <div class="progress-steps">
+  return `<nav aria-label="Progress" class="progress-wrap no-print">
+    <div class="progress-steps" role="list">
       ${steps.map((s, i) => `
-        <div class="prog-step">
-          <div class="prog-node ${i < state.step ? 'done' : i === state.step ? 'active' : ''}">
+        <div class="prog-step" role="listitem">
+          <div class="prog-node ${i < state.step ? 'done' : i === state.step ? 'active' : ''}"
+               aria-label="Step ${i + 1} of 3: ${s}${i < state.step ? ' — completed' : i === state.step ? ' — current' : ''}">
             ${i < state.step ? iconCheck() : i + 1}
           </div>
-          <div class="prog-label ${i === state.step ? 'active' : ''}">${s}</div>
+          <div class="prog-label ${i === state.step ? 'active' : ''}" aria-hidden="true">${s}</div>
         </div>
-        ${i < steps.length - 1 ? `<div class="prog-line ${i < state.step ? 'done' : ''}"></div>` : ''}
+        ${i < steps.length - 1 ? `<div class="prog-line ${i < state.step ? 'done' : ''}" aria-hidden="true"></div>` : ''}
       `).join('')}
     </div>
-  </div>`;
+  </nav>`;
 }
 
 function breadcrumb() {
   if (state.step === 0) return '';
   const loc = data.locations.find(l => l.id === state.location);
-  let html = `<div class="breadcrumb">
+  let html = `<nav aria-label="Breadcrumb" class="breadcrumb">
     <button class="bc-link" onclick="goTo(0)">All locations</button>`;
   if (state.step >= 1) {
-    html += `<span class="bc-sep">›</span>`;
+    html += `<span class="bc-sep" aria-hidden="true">›</span>`;
     if (state.step === 1) {
-      html += `<span>${loc.name}</span>`;
+      html += `<span aria-current="page">${loc.name}</span>`;
     } else {
       html += `<button class="bc-link" onclick="goTo(1)">${loc.name}</button>`;
     }
   }
   if (state.step === 2) {
     const role = loc.roles.find(r => r.id === state.role);
-    html += `<span class="bc-sep">›</span><span>${role.name}</span>`;
+    html += `<span class="bc-sep" aria-hidden="true">›</span><span aria-current="page">${role.name}</span>`;
   }
-  html += `</div>`;
+  html += `</nav>`;
   return html;
 }
 
