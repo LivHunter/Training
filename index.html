@@ -98,37 +98,100 @@
 
   /* Hero banner */
   .hero {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 2.5rem 2.5rem 2rem;
+    background: var(--black);
+    padding: 3rem 2.5rem 3rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 70%);
+    pointer-events: none;
   }
 
   .hero-eyebrow {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 11px;
     font-weight: 600;
     color: var(--red);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+    background: rgba(200,16,46,0.12);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(200,16,46,0.25);
   }
 
   .hero-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--black);
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
+  .hero-title span {
+    color: var(--red);
   }
 
   .hero-sub {
-    font-size: 15px;
-    color: var(--text-muted);
-    max-width: 480px;
-    margin: 0 auto;
-    line-height: 1.6;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 460px;
+    margin: 0 auto 0;
+    line-height: 1.65;
+  }
+
+  /* Step callout chips */
+  .step-chips {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .step-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .step-chip-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
   }
 
   /* Main layout */
@@ -575,9 +638,55 @@
     body > *:not(.print-zone) { display: none !important; }
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* Completion banner */
+  .completion-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #fff8f8 0%, #fff 100%);
+    border: 1.5px solid rgba(200,16,46,0.15);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .completion-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    animation: wiggle 0.6s ease 0.3s both;
+  }
+
+  .completion-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+
+  .completion-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .help-text {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 1rem;
+    text-align: center;
+    animation: fadeUp 0.6s ease;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
   }
 
   /* Footer */
@@ -608,9 +717,14 @@
 </header>
 
 <div class="hero">
-  <span class="hero-eyebrow">Safety Compliance</span>
-  <div class="hero-title">Know before you go.</div>
-  <p class="hero-sub">Find the training requirements for your location and role before starting work in the lab.</p>
+  <span class="hero-eyebrow">🔬 Roux Institute · Safety Portal</span>
+  <div class="hero-title">Welcome to the <span>lab</span>.<br>Let's get you ready.</div>
+  <p class="hero-sub">Three quick steps and you'll know exactly what training you need. No guessing, no back-and-forth — just clarity.</p>
+  <div class="step-chips">
+    <div class="step-chip"><div class="step-chip-num">1</div> Pick your location</div>
+    <div class="step-chip"><div class="step-chip-num">2</div> Select your role</div>
+    <div class="step-chip"><div class="step-chip-num">3</div> Get your checklist</div>
+  </div>
 </div>
 
 <main class="main">
@@ -846,8 +960,8 @@ function breadcrumb() {
 function renderStep0() {
   return `
     ${progress()}
-    <h1 class="page-title">Where are you located?</h1>
-    <p class="page-sub">Select your lab location to see the required safety training for your role.</p>
+    <h1 class="page-title">Where's your lab? 📍</h1>
+    <p class="page-sub">Pick your location and we'll take it from there.</p>
     <div class="loc-grid">
       ${data.locations.map(loc => `
         <button class="loc-card${loc.soon ? ' disabled' : ''}" onclick="${loc.soon ? '' : `selectLocation('${loc.id}')`}">
@@ -865,8 +979,8 @@ function renderStep1() {
   return `
     ${progress()}
     ${breadcrumb()}
-    <h1 class="page-title">What is your role?</h1>
-    <p class="page-sub">Select the role that best describes your position at <strong>${loc.name}</strong>.</p>
+    <h1 class="page-title">Great choice! What's your role? 👋</h1>
+    <p class="page-sub">Pick the role that best describes you at <strong>${loc.name}</strong>.</p>
     <div class="role-grid">
       ${loc.roles.map(role => `
         <button class="role-card" onclick="selectRole('${role.id}')">
@@ -886,18 +1000,24 @@ function renderStep1() {
 function renderStep2() {
   const loc = data.locations.find(l => l.id === state.location);
   const role = loc.roles.find(r => r.id === state.role);
+  const isSingle = role.items.length === 1;
   return `
     ${progress()}
     ${breadcrumb()}
-    <h1 class="page-title">Required training</h1>
-    <p class="page-sub">Complete all of the following before beginning work at <strong>${loc.name}</strong>.</p>
+    <div class="completion-banner">
+      <div class="completion-icon">🎉</div>
+      <div class="completion-text">
+        <div class="completion-title">You're almost lab-ready!</div>
+        <div class="completion-sub">Here's everything you need to complete before your first day. You've got this.</div>
+      </div>
+    </div>
     <div class="training-card">
       <div class="training-header">
         <div class="training-header-left">
           <div class="training-tag">${loc.name}</div>
           <div class="training-title">${role.name}</div>
         </div>
-        <div class="training-count">${role.items.length} requirements</div>
+        <div class="training-count">${role.items.length} ${isSingle ? 'requirement' : 'requirements'}</div>
       </div>
       <div class="training-body">
         ${role.items.map((item, i) => `
@@ -914,10 +1034,11 @@ function renderStep2() {
     <div class="actions">
       <button class="btn-primary" onclick="doPrint()">
         ${iconPrint()}
-        Print checklist
+        Print my checklist
       </button>
       <button class="btn-secondary" onclick="goTo(1)">${iconBack()} Back</button>
-    </div>`;
+    </div>
+    <p class="help-text">Questions? Reach out to your department safety coordinator — they're here to help.</p>`;
 }
 
 function selectLocation(id) {
