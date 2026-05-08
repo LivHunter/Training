@@ -625,6 +625,8 @@
   .print-zone { display: none; }
 
   @media print {
+    .no-print { display: none !important; }
+
     .print-zone {
       display: block !important;
       position: fixed;
@@ -676,6 +678,11 @@
     margin-top: 1rem;
     text-align: center;
     animation: fadeUp 0.6s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes popIn {
@@ -964,7 +971,7 @@ function renderStep0() {
     <p class="page-sub">Pick your location and we'll take it from there.</p>
     <div class="loc-grid">
       ${data.locations.map(loc => `
-        <button class="loc-card${loc.soon ? ' disabled' : ''}" onclick="${loc.soon ? '' : `selectLocation('${loc.id}')`}">
+        <button class="loc-card${loc.soon ? ' disabled' : ''}" ${loc.soon ? 'disabled' : `onclick="selectLocation('${loc.id}')"`}>
           <div class="loc-icon">${loc.id === 'usm' ? iconBuilding() : iconFlask()}</div>
           <div class="loc-name">${loc.name}</div>
           <div class="loc-meta">${loc.meta}</div>
@@ -1066,42 +1073,42 @@ function doPrint() {
   const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   document.getElementById('print-zone').innerHTML = `
-    <div style="font-family:'DM Sans',Arial,sans-serif;max-width:680px;margin:0 auto;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #0f1e2e;">
+    <div style="font-family:'Inter',Arial,sans-serif;max-width:680px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #C8102E;">
         <div>
-          <div style="font-size:20px;font-weight:700;color:#0f1e2e;margin-bottom:4px;">Safety Training Checklist</div>
-          <div style="font-size:13px;color:#5a7a96;">Location: ${loc.name} &nbsp;|&nbsp; Role: ${role.name}</div>
+          <div style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Safety Training Checklist</div>
+          <div style="font-size:13px;color:#666666;">Location: ${loc.name} &nbsp;|&nbsp; Role: ${role.name}</div>
         </div>
-        <div style="font-size:11px;color:#8bafc8;text-align:right;">Generated: ${today}<br>Department Safety Portal</div>
+        <div style="font-size:11px;color:#999999;text-align:right;">Generated: ${today}<br>Roux Institute · Safety Portal</div>
       </div>
 
-      <div style="margin-bottom:8px;font-size:12px;color:#5a7a96;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Required training (${role.items.length} items)</div>
+      <div style="margin-bottom:8px;font-size:12px;color:#666666;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Required training (${role.items.length} items)</div>
 
       ${role.items.map((item, i) => `
-        <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #eef1f4;">
-          <div style="width:18px;height:18px;border:1.5px solid #0f1e2e;border-radius:3px;flex-shrink:0;margin-top:2px;"></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #f0f0f0;">
+          <div style="width:18px;height:18px;border:1.5px solid #1a1a1a;border-radius:3px;flex-shrink:0;margin-top:2px;"></div>
           <div>
-            <div style="font-size:13px;font-weight:500;color:#0f1e2e;">${item.name}</div>
-            ${item.note ? `<div style="font-size:11px;color:#f0a500;margin-top:3px;">${item.note}</div>` : ''}
+            <div style="font-size:13px;font-weight:500;color:#1a1a1a;">${item.name}</div>
+            ${item.note ? `<div style="font-size:11px;color:#C8102E;margin-top:3px;">${item.note}</div>` : ''}
           </div>
-          <div style="margin-left:auto;font-size:11px;color:#8bafc8;white-space:nowrap;">Date completed: ________________</div>
+          <div style="margin-left:auto;font-size:11px;color:#999999;white-space:nowrap;">Date completed: ________________</div>
         </div>
       `).join('')}
 
       <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;">
         <div>
-          <div style="border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Employee name (print)</div>
-          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Signature</div>
-          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Date</div>
+          <div style="border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Employee name (print)</div>
+          <div style="margin-top:24px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Signature</div>
+          <div style="margin-top:24px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Date</div>
         </div>
         <div>
-          <div style="border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Supervisor / lab manager (print)</div>
-          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Supervisor signature</div>
-          <div style="margin-top:24px;border-top:1px solid #0f1e2e;padding-top:6px;font-size:11px;color:#5a7a96;">Date</div>
+          <div style="border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Supervisor / lab manager (print)</div>
+          <div style="margin-top:24px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Supervisor signature</div>
+          <div style="margin-top:24px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Date</div>
         </div>
       </div>
 
-      <div style="margin-top:36px;padding-top:12px;border-top:1px solid #eef1f4;font-size:10px;color:#8bafc8;">
+      <div style="margin-top:36px;padding-top:12px;border-top:1px solid #f0f0f0;font-size:10px;color:#999999;">
         Submit this completed form to your department safety coordinator upon completion of all training requirements.
       </div>
     </div>`;
