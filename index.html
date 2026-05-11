@@ -766,102 +766,106 @@ const data = {
     {
       id: "usm",
       name: "USM",
-      meta: "4 roles · 1–5 requirements each",
+      meta: "2 sub-locations",
       soon: false,
-      roles: [
+      subLocations: [
         {
-          id: "lab-member",
-          name: "Lab Member",
-          initials: "LM",
-          desc: "Full-time lab staff",
-          items: [
-            { name: "Online training (Sci Shield)", note: null },
-            { name: "Onboarding", note: null },
-            { name: "Emergency action plan", note: null },
-            { name: "Hands-on equipment training", note: "For all equipment they will use" },
-            { name: "I-Lab", note: null }
+          id: "usm-main",
+          name: "USM",
+          roles: [
+            {
+              id: "lab-member",
+              name: "Lab Member",
+              initials: "LM",
+              desc: "Full-time lab staff",
+              items: [
+                { name: "Online training (Sci Shield)", note: null },
+                { name: "Onboarding", note: null },
+                { name: "Emergency action plan", note: null },
+                { name: "Hands-on equipment training", note: "For all equipment they will use" },
+                { name: "I-Lab", note: null }
+              ]
+            },
+            {
+              id: "student",
+              name: "Student",
+              initials: "ST",
+              desc: "Student lab members",
+              items: [
+                { name: "Online training (Sci Shield)", note: null },
+                { name: "Onboarding", note: null },
+                { name: "Emergency action plan", note: null },
+                { name: "Hands-on equipment training", note: "For all equipment they will use" },
+                { name: "I-Lab", note: null }
+              ]
+            },
+            {
+              id: "external",
+              name: "External Companies",
+              initials: "EC",
+              desc: "External company members",
+              items: [
+                { name: "Online training (Sci Shield)", note: null },
+                { name: "Onboarding", note: null },
+                { name: "Emergency action plan", note: null },
+                { name: "Hands-on equipment training", note: "For all equipment they will use" },
+                { name: "I-Lab", note: null }
+              ]
+            },
+            {
+              id: "visiting-researcher",
+              name: "Visiting Researcher",
+              initials: "VR",
+              desc: "Visiting researchers",
+              items: [
+                { name: "Must be accompanied in the lab", note: null }
+              ]
+            }
           ]
         },
         {
-          id: "student",
-          name: "Student",
-          initials: "ST",
-          desc: "Student lab members",
-          items: [
-            { name: "Online training (Sci Shield)", note: null },
-            { name: "Onboarding", note: null },
-            { name: "Emergency action plan", note: null },
-            { name: "Hands-on equipment training", note: "For all equipment they will use" },
-            { name: "I-Lab", note: null }
-          ]
-        },
-        {
-          id: "external",
-          name: "External Companies",
-          initials: "EC",
-          desc: "External company members",
-          items: [
-            { name: "Online training (Sci Shield)", note: null },
-            { name: "Onboarding", note: null },
-            { name: "Emergency action plan", note: null },
-            { name: "Hands-on equipment training", note: "For all equipment they will use" },
-            { name: "I-Lab", note: null }
-          ]
-        },
-        {
-          id: "visiting-researcher",
-          name: "Visiting Researcher",
-          initials: "VR",
-          desc: "Visiting researchers",
-          items: [
-            { name: "Must be accompanied in the lab", note: null }
-          ]
-        }
-      ]
-    },
-    {
-      id: "biocolab",
-      name: "BioColab",
-      meta: "3 roles · 5 requirements each",
-      soon: false,
-      roles: [
-        {
-          id: "nu-faculty",
-          name: "NU Faculty",
-          initials: "NF",
-          desc: "Northeastern University faculty",
-          items: [
-            { name: "Online Safety Training (SciShield)", note: null },
-            { name: "In Lab Onboarding", note: null },
-            { name: "Emergency Action Plan", note: null },
-            { name: "Equipment Training", note: "For all equipment they will use" },
-            { name: "I-Lab Training", note: null }
-          ]
-        },
-        {
-          id: "external-member",
-          name: "External Member",
-          initials: "EM",
-          desc: "External company members",
-          items: [
-            { name: "Online Safety Training (SciShield)", note: null },
-            { name: "In Lab Onboarding", note: null },
-            { name: "Emergency Action Plan", note: null },
-            { name: "Equipment Training", note: "For all equipment they will use" },
-            { name: "I-Lab Training", note: null }
-          ]
-        },
-        {
-          id: "external-tenant",
-          name: "External Tenant",
-          initials: "ET",
-          desc: "External company tenants",
-          items: [
-            { name: "Online Safety Training (SciShield)", note: null },
-            { name: "In Lab Onboarding", note: null },
-            { name: "Emergency Action Plan", note: null },
-            { name: "Equipment Training", note: "For all equipment they will use" },
-            { name: "I-Lab Training", note: null }
+          id: "biocolab",
+          name: "BioColab",
+          roles: [
+            {
+              id: "nu-faculty",
+              name: "NU Faculty",
+              initials: "NF",
+              desc: "Northeastern University faculty",
+              items: [
+                { name: "Online Safety Training (SciShield)", note: null },
+                { name: "In Lab Onboarding", note: null },
+                { name: "Emergency Action Plan", note: null },
+                { name: "Equipment Training", note: "For all equipment they will use" },
+                { name: "I-Lab Training", note: null }
+              ]
+            },
+            {
+              id: "external-member",
+              name: "External Member",
+              initials: "EM",
+              desc: "External company members",
+              items: [
+                { name: "Online Safety Training (SciShield)", note: null },
+                { name: "In Lab Onboarding", note: null },
+                { name: "Emergency Action Plan", note: null },
+                { name: "Equipment Training", note: "For all equipment they will use" },
+                { name: "I-Lab Training", note: null }
+              ]
+            },
+            {
+              id: "external-tenant",
+              name: "External Tenant",
+              initials: "ET",
+              desc: "External company tenants",
+              items: [
+                { name: "Online Safety Training (SciShield)", note: null },
+                { name: "In Lab Onboarding", note: null },
+                { name: "Emergency Action Plan", note: null },
+                { name: "Equipment Training", note: "For all equipment they will use" },
+                { name: "I-Lab Training", note: null }
+              ]
+            }
           ]
         }
       ]
@@ -962,32 +966,47 @@ const data = {
   ]
 };
 
-let state = { step: 0, location: null, role: null };
+let state = { step: 0, location: null, sublocation: null, role: null };
 
+/* helpers */
+function getRoles() {
+  const loc = data.locations.find(l => l.id === state.location);
+  if (loc.subLocations) {
+    const sub = loc.subLocations.find(s => s.id === state.sublocation);
+    return sub ? sub.roles : [];
+  }
+  return loc.roles;
+}
+
+function getDisplayName() {
+  const loc = data.locations.find(l => l.id === state.location);
+  if (loc.subLocations && state.sublocation) {
+    return loc.subLocations.find(s => s.id === state.sublocation).name;
+  }
+  return loc.name;
+}
+
+/* icons */
 function iconBuilding() {
   return `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`;
 }
-
 function iconFlask() {
   return `<svg viewBox="0 0 24 24"><path d="M9 3h6M9 3v8l-5 10h16L15 11V3"/></svg>`;
 }
-
 function iconPrint() {
   return `<svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`;
 }
-
 function iconBack() {
   return `<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>`;
 }
-
 function iconReset() {
   return `<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>`;
 }
-
 function iconCheck() {
   return `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
 }
 
+/* progress bar */
 function progress() {
   const steps = ["Location", "Role", "Training"];
   return `<nav aria-label="Progress" class="progress-wrap no-print">
@@ -1006,28 +1025,69 @@ function progress() {
   </nav>`;
 }
 
+/* breadcrumb */
 function breadcrumb() {
-  if (state.step === 0) return '';
+  if (state.step === 0 && !state.location) return '';
   const loc = data.locations.find(l => l.id === state.location);
+  const sub = loc.subLocations && state.sublocation
+    ? loc.subLocations.find(s => s.id === state.sublocation)
+    : null;
+
   let html = `<nav aria-label="Breadcrumb" class="breadcrumb">
     <button class="bc-link" onclick="goTo(0)">All locations</button>`;
-  if (state.step >= 1) {
-    html += `<span class="bc-sep" aria-hidden="true">›</span>`;
-    if (state.step === 1) {
-      html += `<span aria-current="page">${loc.name}</span>`;
+
+  if (state.step === 0) {
+    html += `<span class="bc-sep" aria-hidden="true">›</span><span aria-current="page">${loc.name}</span>`;
+  } else if (state.step === 1) {
+    if (sub) {
+      html += `<span class="bc-sep" aria-hidden="true">›</span>`;
+      html += `<button class="bc-link" onclick="goToSublocation()">${loc.name}</button>`;
+      html += `<span class="bc-sep" aria-hidden="true">›</span><span aria-current="page">${sub.name}</span>`;
     } else {
+      html += `<span class="bc-sep" aria-hidden="true">›</span><span aria-current="page">${loc.name}</span>`;
+    }
+  } else if (state.step === 2) {
+    const role = getRoles().find(r => r.id === state.role);
+    if (sub) {
+      html += `<span class="bc-sep" aria-hidden="true">›</span>`;
+      html += `<button class="bc-link" onclick="goToSublocation()">${loc.name}</button>`;
+      html += `<span class="bc-sep" aria-hidden="true">›</span>`;
+      html += `<button class="bc-link" onclick="goTo(1)">${sub.name}</button>`;
+    } else {
+      html += `<span class="bc-sep" aria-hidden="true">›</span>`;
       html += `<button class="bc-link" onclick="goTo(1)">${loc.name}</button>`;
     }
-  }
-  if (state.step === 2) {
-    const role = loc.roles.find(r => r.id === state.role);
     html += `<span class="bc-sep" aria-hidden="true">›</span><span aria-current="page">${role.name}</span>`;
   }
+
   html += `</nav>`;
   return html;
 }
 
+/* step 0: location picker or sub-location picker */
 function renderStep0() {
+  const loc = state.location ? data.locations.find(l => l.id === state.location) : null;
+
+  if (loc && loc.subLocations) {
+    return `
+      ${progress()}
+      ${breadcrumb()}
+      <h1 class="page-title">Which ${loc.name} space? 🏢</h1>
+      <p class="page-sub">Pick the specific location within <strong>${loc.name}</strong>.</p>
+      <div class="loc-grid">
+        ${loc.subLocations.map(sub => `
+          <button class="loc-card" onclick="selectSublocation('${sub.id}')">
+            <div class="loc-icon">${sub.id === 'usm-main' ? iconBuilding() : iconFlask()}</div>
+            <div class="loc-name">${sub.name}</div>
+            <div class="loc-meta">${sub.roles.length} roles</div>
+          </button>
+        `).join('')}
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" onclick="goTo(0)">${iconBack()} Back</button>
+      </div>`;
+  }
+
   return `
     ${progress()}
     <h1 class="page-title">Where's your lab? 📍</h1>
@@ -1044,15 +1104,19 @@ function renderStep0() {
     </div>`;
 }
 
+/* step 1: role picker */
 function renderStep1() {
   const loc = data.locations.find(l => l.id === state.location);
+  const roles = getRoles();
+  const displayName = getDisplayName();
+  const backFn = loc.subLocations ? 'goToSublocation()' : 'goTo(0)';
   return `
     ${progress()}
     ${breadcrumb()}
     <h1 class="page-title">Great choice! What's your role? 👋</h1>
-    <p class="page-sub">Pick the role that best describes you at <strong>${loc.name}</strong>.</p>
+    <p class="page-sub">Pick the role that best describes you at <strong>${displayName}</strong>.</p>
     <div class="role-grid">
-      ${loc.roles.map(role => `
+      ${roles.map(role => `
         <button class="role-card" onclick="selectRole('${role.id}')">
           <div class="role-avatar">${role.initials}</div>
           <div class="role-info">
@@ -1063,13 +1127,15 @@ function renderStep1() {
       `).join('')}
     </div>
     <div class="actions">
-      <button class="btn-secondary" onclick="goTo(0)">${iconBack()} Back</button>
+      <button class="btn-secondary" onclick="${backFn}">${iconBack()} Back</button>
     </div>`;
 }
 
+/* step 2: training list */
 function renderStep2() {
-  const loc = data.locations.find(l => l.id === state.location);
-  const role = loc.roles.find(r => r.id === state.role);
+  const roles = getRoles();
+  const role = roles.find(r => r.id === state.role);
+  const displayName = getDisplayName();
   const isSingle = role.items.length === 1;
   return `
     ${progress()}
@@ -1084,7 +1150,7 @@ function renderStep2() {
     <div class="training-card">
       <div class="training-header">
         <div class="training-header-left">
-          <div class="training-tag">${loc.name}</div>
+          <div class="training-tag">${displayName}</div>
           <div class="training-title">${role.name}</div>
         </div>
         <div class="training-count">${role.items.length} ${isSingle ? 'requirement' : 'requirements'}</div>
@@ -1112,8 +1178,16 @@ function renderStep2() {
     <p class="help-text">Questions? Reach out to your department safety coordinator — they're here to help.</p>`;
 }
 
+/* state transitions */
 function selectLocation(id) {
   state.location = id;
+  const loc = data.locations.find(l => l.id === id);
+  if (!loc.subLocations) state.step = 1;
+  render();
+}
+
+function selectSublocation(id) {
+  state.sublocation = id;
   state.step = 1;
   render();
 }
@@ -1126,14 +1200,22 @@ function selectRole(id) {
 
 function goTo(step) {
   state.step = step;
-  if (step === 0) { state.location = null; state.role = null; }
+  if (step === 0) { state.location = null; state.sublocation = null; state.role = null; }
   if (step === 1) state.role = null;
   render();
 }
 
+function goToSublocation() {
+  state.sublocation = null;
+  state.role = null;
+  state.step = 0;
+  render();
+}
+
+/* print */
 function doPrint() {
-  const loc = data.locations.find(l => l.id === state.location);
-  const role = loc.roles.find(r => r.id === state.role);
+  const role = getRoles().find(r => r.id === state.role);
+  const displayName = getDisplayName();
   const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   document.getElementById('print-zone').innerHTML = `
@@ -1141,13 +1223,11 @@ function doPrint() {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #C8102E;">
         <div>
           <div style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Safety Training Checklist</div>
-          <div style="font-size:13px;color:#666666;">Location: ${loc.name} &nbsp;|&nbsp; Role: ${role.name}</div>
+          <div style="font-size:13px;color:#666666;">Location: ${displayName} &nbsp;|&nbsp; Role: ${role.name}</div>
         </div>
         <div style="font-size:11px;color:#999999;text-align:right;">Generated: ${today}<br>Roux Institute · Safety Portal</div>
       </div>
-
       <div style="margin-bottom:8px;font-size:12px;color:#666666;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Required training (${role.items.length} items)</div>
-
       ${role.items.map((item, i) => `
         <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #f0f0f0;">
           <div style="width:18px;height:18px;border:1.5px solid #1a1a1a;border-radius:3px;flex-shrink:0;margin-top:2px;"></div>
@@ -1158,7 +1238,6 @@ function doPrint() {
           <div style="margin-left:auto;font-size:11px;color:#999999;white-space:nowrap;">Date completed: ________________</div>
         </div>
       `).join('')}
-
       <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;">
         <div>
           <div style="border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Employee name (print)</div>
@@ -1171,7 +1250,6 @@ function doPrint() {
           <div style="margin-top:24px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666666;">Date</div>
         </div>
       </div>
-
       <div style="margin-top:36px;padding-top:12px;border-top:1px solid #f0f0f0;font-size:10px;color:#999999;">
         Submit this completed form to your department safety coordinator upon completion of all training requirements.
       </div>
@@ -1180,6 +1258,7 @@ function doPrint() {
   window.print();
 }
 
+/* render */
 function render() {
   const app = document.getElementById('app');
   if (state.step === 0) app.innerHTML = renderStep0();
